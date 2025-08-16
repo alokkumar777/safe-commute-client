@@ -1,0 +1,5 @@
+* { box-sizing: border-box; }
+body { font-family: system-ui, Arial, sans-serif; margin: 0; }
+input, button { padding: 8px; margin: 4px 0; }
+button { cursor: pointer; }
+fieldset { border: 1px solid #ddd; padding: 8px; }
