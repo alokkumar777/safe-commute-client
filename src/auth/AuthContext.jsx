@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import http from "../api/http";
 import { io as ioClient } from "socket.io-client";
+import { registerServiceWorker, subscribePush } from "../push";
 
 const AuthCtx = createContext(null);
 
@@ -28,18 +29,27 @@ export function AuthProvider({ children }) {
       return () => s.disconnect();
     }, []);
 
-  const login = async (email, password) => {
-    setLoading(true);
-    try {
-      const { data } = await http.post("/auth/login", { email, password });
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-      setUser(data.user);
-      return { ok: true };
-    } finally {
-      setLoading(false);
-    }
-  };
+    const login = async (email, password) => {
+      setLoading(true);
+      try {
+        const { data } = await http.post("/auth/login", { email, password });
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        setUser(data.user);
+
+        // Try registering SW + subscribing (best-effort)
+        try {
+          const reg = await registerServiceWorker();
+          await subscribePush(reg);
+        } catch (e) {
+          /* ignore if denied or unsupported */
+        }
+
+        return { ok: true };
+      } finally {
+        setLoading(false);
+      }
+    };
 
   const register = async (payload) => {
     setLoading(true);
