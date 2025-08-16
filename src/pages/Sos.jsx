@@ -27,12 +27,12 @@ export default function Sos() {
   };
 
   return (
-    <div style={{ padding: 16 }}>
-      <h2>Emergency SOS</h2>
-      <button onClick={trigger} style={{ fontSize: 18, padding: "12px 16px" }}>
-        🔴 Send SOS
+    <div className="p-4 md:p-8 bg-gray-100 min-h-screen flex flex-col items-center justify-center text-center">
+      <h2 className="text-4xl font-bold mb-6 text-gray-800">Emergency SOS</h2>
+      <button onClick={trigger} className="bg-red-600 text-white font-bold py-6 px-10 rounded-full shadow-lg hover:bg-red-700 transition-transform transform hover:scale-105">
+        <span className="text-2xl">🔴 Send SOS</span>
       </button>
-      <p>{status}</p>
+      {status && <p className="mt-6 text-lg text-blue-700 bg-blue-100 p-4 rounded-lg">{status}</p>}
     </div>
   );
 }

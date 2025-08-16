@@ -115,35 +115,39 @@ export default function TripStart() {
   );
 
   return (
-    <div style={{ padding: 16 }}>
-      <h2>Start Trip</h2>
-      <form onSubmit={start} style={{ display: "grid", gap: 8, maxWidth: 600 }}>
-        <fieldset>
-          <legend>Origin</legend>
+    <div className="p-4 md:p-8 bg-gray-100 min-h-screen">
+      <h2 className="text-3xl font-bold mb-6 text-gray-800">Start Trip</h2>
+      <form onSubmit={start} className="grid gap-6 max-w-2xl bg-white p-6 rounded-lg shadow-md">
+        <fieldset className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 border border-gray-200 rounded-lg">
+          <legend className="text-xl font-semibold mb-2 text-gray-700 px-2">Origin</legend>
           <input
             placeholder="Lat"
             value={origin.lat}
             onChange={(e) => setOrigin({ ...origin, lat: e.target.value })}
+            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <input
             placeholder="Lng"
             value={origin.lng}
             onChange={(e) => setOrigin({ ...origin, lng: e.target.value })}
+            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <input
             placeholder="Label"
             value={origin.label}
             onChange={(e) => setOrigin({ ...origin, label: e.target.value })}
+            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </fieldset>
-        <fieldset>
-          <legend>Destination</legend>
+        <fieldset className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 border border-gray-200 rounded-lg">
+          <legend className="text-xl font-semibold mb-2 text-gray-700 px-2">Destination</legend>
           <input
             placeholder="Lat"
             value={destination.lat}
             onChange={(e) =>
               setDestination({ ...destination, lat: e.target.value })
             }
+            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <input
             placeholder="Lng"
@@ -151,6 +155,7 @@ export default function TripStart() {
             onChange={(e) =>
               setDestination({ ...destination, lng: e.target.value })
             }
+            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <input
             placeholder="Label"
@@ -158,21 +163,22 @@ export default function TripStart() {
             onChange={(e) =>
               setDestination({ ...destination, label: e.target.value })
             }
+            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </fieldset>
 
-        <div style={{ display: "flex", gap: 8 }}>
-          <button type="button" onClick={previewRoute} disabled={!isLoaded}>
+        <div className="flex gap-4 mt-4">
+          <button type="button" onClick={previewRoute} disabled={!isLoaded} className="flex-1 bg-gray-500 text-white p-3 rounded-lg hover:bg-gray-600 transition-colors disabled:bg-gray-400">
             Preview Route
           </button>
-          <button type="submit" disabled={!isLoaded}>
+          <button type="submit" disabled={!isLoaded} className="flex-1 bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition-colors disabled:bg-gray-400">
             Start
           </button>
         </div>
-        {err && <p style={{ color: "crimson" }}>{err}</p>}
+        {err && <p className="text-red-500 text-sm mt-2">{err}</p>}
       </form>
 
-      <div style={{ marginTop: 12 }}>
+      <div className="mt-8 rounded-lg shadow-md overflow-hidden">
         {isLoaded && (
           <GoogleMap
             mapContainerStyle={containerStyle}
@@ -185,11 +191,11 @@ export default function TripStart() {
       </div>
 
       {trip && (
-        <div style={{ marginTop: 16 }}>
-          <p>
-            Trip active: <code>{trip._id}</code>
+        <div className="mt-8 p-6 bg-green-100 border border-green-200 rounded-lg shadow-md">
+          <p className="text-green-800 font-semibold">
+            Trip active: <code className="bg-white p-1 rounded">{trip._id}</code>
           </p>
-          <button onClick={complete}>Complete Trip</button>
+          <button onClick={complete} className="mt-4 bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition-colors">Complete Trip</button>
         </div>
       )}
     </div>
